@@ -1,0 +1,40 @@
+DROP TABLE productosdb.producto;
+DROP TABLE productosdb.categoria_producto;
+DROP TABLE productosdb.usuario;
+
+CREATE TABLE `categoria_producto` (
+  `id_categoria` int unsigned NOT NULL,
+  `nombre_categoria` varchar(35) NOT NULL,
+  PRIMARY KEY (`id_categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO categoria_producto (id_categoria, nombre_categoria)
+values (1,'bebida');
+INSERT INTO categoria_producto (id_categoria, nombre_categoria)
+values (2,'comida');
+
+CREATE TABLE `producto` (
+  `id_producto` int unsigned NOT NULL AUTO_INCREMENT,
+  `id_categoria` int unsigned DEFAULT NULL,
+  `nombre_producto` varchar(35) NOT NULL,
+  `precio_producto` int unsigned NOT NULL,
+  `cantidad_producto` int unsigned NOT NULL,
+  `imagen_producto` longblob NOT NULL,
+  PRIMARY KEY (`id_producto`),
+  KEY `id_categoria` (`id_categoria`),
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_producto` (`id_categoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `usuario` (
+  `id_usuario` int unsigned NOT NULL AUTO_INCREMENT,
+  `nombre_usuario` varchar(25) NOT NULL,
+  `contraseña_usuario` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT= 1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO productosdb.usuario (nombre_usuario, contraseña_usuario)
+VALUES ('ADMIN', '12345');
+
+select * from productosdb.categoria_producto;
+select * from productosdb.producto;
